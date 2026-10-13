@@ -1,0 +1,245 @@
+{
+  "date": "2026-10-13T12:50:53.365Z",
+  "resultats": [
+    {
+      "id": "E2E-01",
+      "titre": "L’application démarre en mode démonstration",
+      "statut": "OK",
+      "detail": "○ Mode démonstration"
+    },
+    {
+      "id": "E2E-02",
+      "titre": "Les 19 prospects réels sont chargés",
+      "statut": "OK",
+      "detail": "19 prospects · 15 actifs · 14 à relancer · 2 en opposition"
+    },
+    {
+      "id": "E2E-03",
+      "titre": "Le Kanban affiche les 6 statuts de la base",
+      "statut": "OK",
+      "detail": "6 colonnes"
+    },
+    {
+      "id": "E2E-04",
+      "titre": "La recherche filtre les cartes",
+      "statut": "OK",
+      "detail": "3 résultats"
+    },
+    {
+      "id": "E2E-05",
+      "titre": "Un filtre avancé se cumule avec la recherche",
+      "statut": "OK",
+      "detail": "4 prospects au statut nouveau"
+    },
+    {
+      "id": "E2E-06",
+      "titre": "La bascule Tableau change la présentation",
+      "statut": "OK",
+      "detail": "19 lignes"
+    },
+    {
+      "id": "E2E-07",
+      "titre": "Ouvrir une carte affiche la fiche prospect",
+      "statut": "OK",
+      "detail": "coordonnées et fiche énergie affichées"
+    },
+    {
+      "id": "E2E-08",
+      "titre": "Le détail du score est explicable",
+      "statut": "OK",
+      "detail": "4 composantes affichées"
+    },
+    {
+      "id": "E2E-09",
+      "titre": "La génération produit un email et un score de confiance",
+      "statut": "OK",
+      "detail": "Confiance 5 sur 5"
+    },
+    {
+      "id": "E2E-10",
+      "titre": "Le bouton Copier fonctionne",
+      "statut": "OK",
+      "detail": "Objet : Vos fours tournent la nuit, votre facture aussi"
+    },
+    {
+      "id": "E2E-11",
+      "titre": "Le bouton Modifier ouvre l’édition du texte",
+      "statut": "OK",
+      "detail": "édition enregistrée"
+    },
+    {
+      "id": "E2E-12",
+      "titre": "La régénération avec d’autres paramètres change le texte",
+      "statut": "OK",
+      "detail": "texte régénéré selon les paramètres"
+    },
+    {
+      "id": "E2E-13",
+      "titre": "L’email s’enregistre dans l’historique du prospect",
+      "statut": "OK",
+      "detail": "3 entrées dans l’historique"
+    },
+    {
+      "id": "E2E-14",
+      "titre": "Le changement de statut est pris en compte",
+      "statut": "OK",
+      "detail": "★ Qualifié"
+    },
+    {
+      "id": "E2E-15",
+      "titre": "Un prospect en opposition RGPD bloque la génération",
+      "statut": "OK",
+      "detail": "génération bloquée et motif affiché"
+    },
+    {
+      "id": "E2E-16",
+      "titre": "Création d’un prospect : les erreurs de saisie sont explicites",
+      "statut": "OK",
+      "detail": "▲ Indiquez la raison sociale du commerce."
+    },
+    {
+      "id": "E2E-17",
+      "titre": "Création d’un prospect valide",
+      "statut": "OK",
+      "detail": "prospect créé et fiche ouverte"
+    },
+    {
+      "id": "E2E-17b",
+      "titre": "Le formulaire « Nouveau prospect » est vierge après consultation d’une fiche",
+      "statut": "OK",
+      "detail": "formulaire vierge, bouton « Créer le prospect »"
+    },
+    {
+      "id": "E2E-18",
+      "titre": "Le nouveau prospect apparaît dans le pipeline",
+      "statut": "OK",
+      "detail": "20 prospects · 16 actifs · 14 à relancer · 2 en opposition"
+    },
+    {
+      "id": "E2E-19",
+      "titre": "Validation de l’email au format incorrect",
+      "statut": "OK",
+      "detail": "▲ Cette adresse email ne semble pas valide. Exemple : contact@commerce.fr"
+    },
+    {
+      "id": "E2E-20",
+      "titre": "Suppression d’un prospect",
+      "statut": "OK",
+      "detail": "19 prospects · 15 actifs · 14 à relancer · 2 en opposition"
+    },
+    {
+      "id": "E2E-21",
+      "titre": "Le tableau de bord est réservé au manager",
+      "statut": "OK",
+      "detail": "lien visible après passage en rôle manager"
+    },
+    {
+      "id": "E2E-22",
+      "titre": "Le tableau de bord affiche les indicateurs et les graphiques",
+      "statut": "OK",
+      "detail": "4 indicateurs, 26 barres, 4 étapes"
+    },
+    {
+      "id": "E2E-23",
+      "titre": "L’écran Relances liste les prospects à recontacter",
+      "statut": "OK",
+      "detail": "14 prospects à relancer"
+    },
+    {
+      "id": "E2E-24",
+      "titre": "Le mode sombre s’active et persiste au rechargement",
+      "statut": "OK",
+      "detail": "fond rgb(18, 21, 15)"
+    },
+    {
+      "id": "E2E-25",
+      "titre": "Le mode lecture facilitée s’active",
+      "statut": "OK",
+      "detail": "letter-spacing 0.6px"
+    },
+    {
+      "id": "E2E-26",
+      "titre": "Navigation au clavier : ouvrir une carte avec Entrée",
+      "statut": "OK",
+      "detail": "fiche ouverte au clavier"
+    },
+    {
+      "id": "E2E-27",
+      "titre": "Le raccourci « / » place le focus dans la recherche",
+      "statut": "OK",
+      "detail": "focus sur #q"
+    },
+    {
+      "id": "E2E-28",
+      "titre": "Le focus clavier est visible",
+      "statut": "OK",
+      "detail": "solid 2px"
+    },
+    {
+      "id": "E2E-29",
+      "titre": "Les cibles tactiles atteignent 44 px",
+      "statut": "OK",
+      "detail": "aucune cible sous 36 px"
+    },
+    {
+      "id": "E2E-30",
+      "titre": "Affichage mobile : une colonne, pas de défilement horizontal",
+      "statut": "OK",
+      "detail": "aucun débordement, kanban empilé"
+    },
+    {
+      "id": "E2E-31",
+      "titre": "Mode connecté sans jeton : message d’erreur explicite",
+      "statut": "OK",
+      "detail": "▲Indiquez un jeton Baserow pour le mode direct.\n     ✕"
+    },
+    {
+      "id": "E2E-32",
+      "titre": "Mode connecté avec un jeton invalide : l’erreur réseau est expliquée",
+      "statut": "OK",
+      "detail": "erreur affichée sans page blanche"
+    },
+    {
+      "id": "E2E-33",
+      "titre": "Aucune erreur JavaScript pendant tout le parcours",
+      "statut": "OK",
+      "detail": "aucune"
+    },
+    {
+      "id": "E2E-34",
+      "titre": "Mode serveur : bascule et chargement par la fonction serverless",
+      "statut": "OK",
+      "detail": "✓ Connecté (par le serveur) — 19 prospects · 15 actifs · 14 à relancer · 2 en opposition"
+    },
+    {
+      "id": "E2E-35",
+      "titre": "Mode serveur : aucun jeton Baserow dans le navigateur",
+      "statut": "OK",
+      "detail": "stockage local sans jeton Baserow"
+    },
+    {
+      "id": "E2E-36",
+      "titre": "Mode serveur : création écrite dans la base via le relais",
+      "statut": "OK",
+      "detail": "ligne créée en base, jeton présenté par le serveur"
+    },
+    {
+      "id": "E2E-37",
+      "titre": "Mode serveur : génération relayée vers le workflow",
+      "statut": "OK",
+      "detail": "email reçu du workflow par le relais"
+    },
+    {
+      "id": "E2E-38",
+      "titre": "Mode serveur : un code d’accès erroné est expliqué",
+      "statut": "OK",
+      "detail": "refus expliqué sans page blanche"
+    },
+    {
+      "id": "E2E-39",
+      "titre": "Retour au mode démonstration après échec",
+      "statut": "OK",
+      "detail": "○ Mode démonstration"
+    }
+  ]
+}

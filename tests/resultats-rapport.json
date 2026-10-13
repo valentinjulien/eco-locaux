@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-13T12:50:31.090Z",
+  "resultats": [
+    {
+      "id": "RAP-01",
+      "titre": "Bornes de semaine calculées depuis un mardi",
+      "statut": "OK",
+      "detail": "05→11 octobre, semaine à venir 12→18"
+    },
+    {
+      "id": "RAP-02",
+      "titre": "Un prospect créé la semaine passée apparaît",
+      "statut": "OK",
+      "detail": "bornes inclusives au bon endroit"
+    },
+    {
+      "id": "RAP-03",
+      "titre": "Une affaire gagnée la semaine passée apparaît",
+      "statut": "OK",
+      "detail": "statut et date tous deux exigés"
+    },
+    {
+      "id": "RAP-04",
+      "titre": "Relance due cette semaine : 30 jours après le dernier contact",
+      "statut": "OK",
+      "detail": "échéance au 13/10"
+    },
+    {
+      "id": "RAP-05",
+      "titre": "Relances en retard, triées du plus ancien au plus récent",
+      "statut": "OK",
+      "detail": "le plus en retard en tête (103 jours)"
+    },
+    {
+      "id": "RAP-06",
+      "titre": "Opposition à la prospection : exclue de toute relance",
+      "statut": "OK",
+      "detail": "règle RGPD tenue dans les deux listes"
+    },
+    {
+      "id": "RAP-07",
+      "titre": "Gagnés et perdus ne sont jamais relancés",
+      "statut": "OK",
+      "detail": "seul le prospect actif reste"
+    },
+    {
+      "id": "RAP-08",
+      "titre": "Compteurs d’activité de la semaine passée",
+      "statut": "OK",
+      "detail": "2 appels, 1 abouti, 1 email envoyé, 1 RDV, hors période écarté"
+    },
+    {
+      "id": "RAP-09",
+      "titre": "Sections vides : une phrase, pas un tableau vide",
+      "statut": "OK",
+      "detail": "quatre sections vides rendues lisibles"
+    },
+    {
+      "id": "RAP-10",
+      "titre": "Le HTML échappe ce qui vient de la base",
+      "statut": "OK",
+      "detail": "injection neutralisée"
+    },
+    {
+      "id": "RAP-11",
+      "titre": "Objet de l’email daté de la semaine écoulée",
+      "statut": "OK",
+      "detail": "ÉCO-LOCAUX · Bilan de la semaine du 05/10/2026"
+    },
+    {
+      "id": "RAP-12",
+      "titre": "Les 19 prospects réels passent sans incident",
+      "statut": "OK",
+      "detail": "14 relances en retard, 5 prospects prioritaires"
+    },
+    {
+      "id": "RAP-13",
+      "titre": "Un prospect sans date de dernier contact ne fait rien planter",
+      "statut": "OK",
+      "detail": "absence de date traitée comme « pas de relance due »"
+    }
+  ]
+}

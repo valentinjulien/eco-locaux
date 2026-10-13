@@ -1,0 +1,418 @@
+{
+  "name": "Eco-Locaux – W6 Générer un email de prospection",
+  "nodes": [
+    {
+      "id": "Webhook",
+      "name": "Webhook – Générer un email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        96
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "eco-locaux/generer-email",
+        "responseMode": "responseNode",
+        "options": {},
+        "authentication": "headerAuth"
+      }
+    },
+    {
+      "id": "Valider la demande",
+      "name": "Valider la demande",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        224
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const corps = $json.body || $json;\nconst p = corps.prospect || {};\nconst fiche = corps.fiche_energie || {};\nconst par = corps.parametres || {};\nconst t = function (v) { return typeof v === 'string' ? v.trim() : ''; };\nconst BORNES = {\n  courte: { min: 30, max: 75, cible: '40 a 60 mots' },\n  moyenne: { min: 45, max: 110, cible: '60 a 90 mots' },\n  longue: { min: 70, max: 160, cible: '90 a 130 mots, avec un exemple concret' }\n};\nconst longueur = BORNES[par.longueur] ? par.longueur : 'moyenne';\nconst erreurs = [];\nif (!t(p.raison_sociale)) erreurs.push('raison sociale absente');\nif (!t(p.type_commerce) && !t(fiche.type)) erreurs.push('type de commerce absent');\nif (p.opt_out === true) erreurs.push('opposition a la prospection enregistree (RGPD)');\nif (p.email_disponible !== true) erreurs.push('aucune adresse email connue pour ce prospect');\nif (t(p.statut).toLowerCase() === 'perdu') erreurs.push('prospect au statut perdu');\nconst valide = erreurs.length === 0;\nreturn [{ json: {\n  valide: valide,\n  demande: {\n    raison_sociale: t(p.raison_sociale),\n    type_commerce: t(p.type_commerce) || t(fiche.type),\n    specificites: t(fiche.specificites),\n    ville: t(p.ville),\n    statut: t(p.statut),\n    telephone_disponible: p.telephone_disponible === true,\n    jours_sans_contact: typeof p.jours_sans_contact === 'number' ? p.jours_sans_contact : null,\n    regenere: par.regenere === true\n  },\n  consignes: {\n    ton: t(par.ton_consigne) || 'Ton chaleureux et proche, vocabulaire simple, sans familiarite excessive.',\n    angle: t(par.angle_consigne) || 'Angle principal : la baisse de la facture energetique.',\n    longueur: longueur,\n    longueur_consigne: t(par.longueur_consigne) || ('Accroche de ' + BORNES[longueur].cible + '.'),\n    min: BORNES[longueur].min,\n    max: BORNES[longueur].max\n  },\n  signature: t(corps.commercial && corps.commercial.nom) || 'L equipe Eco-Locaux',\n  reponse: valide ? null : { statut: 'erreur', code: 'DEMANDE_INVALIDE', message: 'la demande ne respecte pas les conditions de generation', erreurs: erreurs }\n} }];\n"
+      }
+    },
+    {
+      "id": "Demande recevable ?",
+      "name": "Demande recevable ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        496,
+        224
+      ],
+      "parameters": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "loose",
+          "version": 2
+        },
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-valide",
+              "leftValue": "={{ $json.valide }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "Répondre 400 – demande invalide",
+      "name": "Répondre 400 – demande invalide",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        912,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.reponse) }}",
+        "options": {
+          "responseCode": 400
+        }
+      }
+    },
+    {
+      "id": "Construire le prompt",
+      "name": "Construire le prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        320
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const d = $json.demande;\nconst g = $json.consignes;\nconst f = [];\nf.push('Commerce : ' + d.raison_sociale);\nf.push('Metier : ' + d.type_commerce);\nif (d.specificites) f.push('Postes de consommation propres a ce metier : ' + d.specificites);\nif (d.ville) f.push('Ville : ' + d.ville);\nif (d.statut) f.push('Etape commerciale actuelle : ' + d.statut);\nf.push(d.telephone_disponible ? 'Un numero de telephone est connu du commercial : ne jamais l ecrire dans l email.' : 'Aucun numero de telephone connu : ne pas en inventer.');\nif (d.jours_sans_contact !== null) f.push('Jours ecoules depuis le dernier contact : ' + d.jours_sans_contact);\nconst c = [];\nc.push('Tu rediges un email de prospection pour Eco-Locaux, qui aide les petits commerces de proximite a maitriser leur consommation d energie.');\nc.push('Objectif : obtenir un echange court avec le commercant, pas vendre dans l email.');\nc.push(g.ton);\nc.push(g.angle);\nc.push('Longueur du corps : ' + g.longueur_consigne + ' Reste entre ' + g.min + ' et ' + g.max + ' mots.');\nc.push('Regles imperatives :');\nc.push('- ces consignes sont ecrites sans accents pour des raisons techniques, mais ton email doit etre dans un francais correct et entierement accentue (accents, cedilles, apostrophes typographiques) ;');\nc.push('- vouvoiement, objet de 4 a 9 mots sans point d exclamation ;');\nc.push('- cite le nom du commerce et appuie-toi sur un poste de consommation propre a son metier ;');\nc.push('- ne mentionne aucun equipement etranger au metier ;');\nc.push('- aucune garantie de resultat, aucune economie presentee comme certaine, aucun pourcentage superieur a 30 ;');\nc.push('- n invente aucun numero de telephone, aucune adresse, aucun client, aucune aide publique precise ;');\nc.push('- ne demande aucune donnee personnelle ;');\nc.push('- termine par une question simple proposant un echange, puis cette signature exacte : ' + $json.signature + ' ;');\nc.push('- si la fiche ne dit rien sur un point, reste general plutot que d inventer.');\nif (d.regenere) c.push('Cette demande est une regeneration : propose un angle d accroche different de la formulation la plus evidente.');\nc.push('Reponds uniquement par un objet JSON, sans texte autour et sans bloc de code, au format :');\nc.push('{\"objet\": \"...\", \"corps\": \"...\", \"accroche\": \"...\", \"confiance\": 0.0}');\nc.push('ou accroche resume l angle choisi en 15 mots maximum, et confiance estime entre 0 et 1 la qualite de ta reponse.');\nreturn [{ json: { prompt_complet: c.join('\\n') + '\\n\\nFiche du prospect :\\n' + f.join('\\n') } }];\n"
+      }
+    },
+    {
+      "id": "Modele",
+      "name": "Modèle de rédaction",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [
+        1104,
+        544
+      ],
+      "parameters": {
+        "options": {
+          "maxTokensToSample": 2048,
+          "thinkingMode": "disabled"
+        }
+      }
+    },
+    {
+      "id": "Chaine",
+      "name": "IA – Rédiger le message",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1024,
+        320
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt_complet }}"
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 3000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "Contrôler la sortie",
+      "name": "Contrôler la sortie",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        416
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const ctx = $('Valider la demande').first().json;\nconst brut = typeof $json.text === 'string' ? $json.text : (typeof $json.output === 'string' ? $json.output : '');\nconst essai = function (s) { try { return JSON.parse(s); } catch (e) { return null; } };\nconst extrait = brut.indexOf('{') >= 0 ? brut.slice(brut.indexOf('{'), brut.lastIndexOf('}') + 1) : '';\nconst r = essai(brut.trim()) || essai(extrait);\nif (!r || typeof r !== 'object') {\n  return [{ json: { ok: false, reponse: { statut: 'erreur', code: 'SORTIE_ILLISIBLE', message: 'le modele n a pas renvoye de JSON exploitable', extrait: brut.slice(0, 400) } } }];\n}\nconst objet = typeof r.objet === 'string' ? r.objet.trim() : '';\nconst corps = typeof r.corps === 'string' ? r.corps.trim() : (typeof r.accroche === 'string' ? r.accroche.trim() : '');\n// Comparaisons faites sans accents ni casse, pour que « économies » et « economies » se valent\nconst norme = function (s) { return String(s || '').normalize('NFD').replace(/\\p{Diacritic}/gu, '').toLowerCase(); };\nconst texte = objet + ' ' + corps;\nconst n = norme(texte);\nconst mots = corps.split(/\\s+/).filter(Boolean).length;\nconst majeures = [];\nconst mineures = [];\nlet i = 0;\nif (!objet) majeures.push({ code: 'OBJET_MANQUANT', detail: 'objet absent' });\nif (!corps) majeures.push({ code: 'CORPS_MANQUANT', detail: 'corps absent' });\nconst promesses = ['garanti', '100 %', '100%', 'sans aucun risque', 'economies certaines'];\nfor (i = 0; i < promesses.length; i++) {\n  if (n.indexOf(promesses[i]) >= 0) majeures.push({ code: 'PROMESSE_INTERDITE', detail: promesses[i] });\n}\n// Un equipement cite hors de son metier trahit une reponse plaquee\nconst horsSujet = {\n  pressing: ['four a pain', 'petrin', 'fournil'],\n  laverie: ['petrin', 'fournil', 'solvant'],\n  boulangerie: ['solvant', 'nettoyage a sec', 'perchlo'],\n  poissonnerie: ['four a pain', 'solvant'],\n  boucherie: ['four a pain', 'solvant']\n};\nconst interdits = horsSujet[norme(ctx.demande.type_commerce)] || [];\nfor (i = 0; i < interdits.length; i++) {\n  if (n.indexOf(interdits[i]) >= 0) majeures.push({ code: 'HORS_SUJET_METIER', detail: interdits[i] });\n}\nif (/(\\+33|0)[1-9](\\s?\\d{2}){4}/.test(texte)) majeures.push({ code: 'COORDONNEES_INVENTEES', detail: 'numero de telephone' });\nconst pourcents = texte.match(/\\d{1,3}\\s?%/g) || [];\nfor (i = 0; i < pourcents.length; i++) {\n  if (parseInt(pourcents[i], 10) > 30) majeures.push({ code: 'CHIFFRE_EXCESSIF', detail: pourcents[i] });\n}\nif (corps && (mots < ctx.consignes.min || mots > ctx.consignes.max)) {\n  mineures.push({ code: 'LONGUEUR', detail: mots + ' mots (attendu ' + ctx.consignes.min + ' a ' + ctx.consignes.max + ')' });\n}\nconst motsNom = norme(ctx.demande.raison_sociale).split(/\\s+/).filter(function (m) { return m.length >= 4; });\nmotsNom.sort(function (a, b) { return b.length - a.length; });\nif (motsNom.length > 0 && n.indexOf(motsNom[0]) === -1) {\n  mineures.push({ code: 'PERSONNALISATION', detail: 'le nom du commerce n est pas cite' });\n}\nif (majeures.length > 0) {\n  return [{ json: { ok: false, reponse: { statut: 'erreur', code: 'CONTROLE_ECHOUE', message: 'le texte produit ne respecte pas les regles de redaction', anomalies: majeures, brouillon: { objet: objet, corps: corps } } } }];\n}\nreturn [{ json: { ok: true, reponse: {\n  statut: 'ok',\n  prospect: ctx.demande.raison_sociale,\n  objet: objet,\n  corps: corps,\n  accroche: typeof r.accroche === 'string' ? r.accroche.trim() : '',\n  modele: 'anthropic via passerelle n8n',\n  confiance: typeof r.confiance === 'number' ? Math.max(0, Math.min(1, r.confiance)) : null,\n  controle: { verifie: true, mots: mots, longueur_attendue: ctx.consignes.min + ' a ' + ctx.consignes.max, anomalies: mineures },\n  genere_le: new Date().toISOString()\n} } }];\n"
+      }
+    },
+    {
+      "id": "Sortie conforme ?",
+      "name": "Sortie conforme ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1552,
+        416
+      ],
+      "parameters": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "loose",
+          "version": 2
+        },
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-ok",
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "Répondre 200 – email rédigé",
+      "name": "Répondre 200 – email rédigé",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1808,
+        192
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.reponse) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "Répondre 502 – contrôle échoué",
+      "name": "Répondre 502 – contrôle échoué",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1808,
+        384
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.reponse) }}",
+        "options": {
+          "responseCode": 502
+        }
+      }
+    },
+    {
+      "id": "Formater le défaut du modèle",
+      "name": "Formater le défaut du modèle",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const e = $json.error || $json;\nconst detail = typeof e.message === 'string' ? e.message : 'aucun detail transmis par le service';\nreturn [{ json: { reponse: { statut: 'erreur', code: 'LLM_INDISPONIBLE', message: 'le service de redaction est momentanement indisponible, reessayez dans quelques minutes', detail: detail.slice(0, 300) } } }];\n"
+      }
+    },
+    {
+      "id": "Répondre 503 – modèle indisponible",
+      "name": "Répondre 503 – modèle indisponible",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1808,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.reponse) }}",
+        "options": {
+          "responseCode": 503
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook – Générer un email": {
+      "main": [
+        [
+          {
+            "node": "Valider la demande",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valider la demande": {
+      "main": [
+        [
+          {
+            "node": "Demande recevable ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Demande recevable ?": {
+      "main": [
+        [
+          {
+            "node": "Construire le prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Répondre 400 – demande invalide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire le prompt": {
+      "main": [
+        [
+          {
+            "node": "IA – Rédiger le message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IA – Rédiger le message": {
+      "main": [
+        [
+          {
+            "node": "Contrôler la sortie",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Formater le défaut du modèle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modèle de rédaction": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "IA – Rédiger le message",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contrôler la sortie": {
+      "main": [
+        [
+          {
+            "node": "Sortie conforme ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sortie conforme ?": {
+      "main": [
+        [
+          {
+            "node": "Répondre 200 – email rédigé",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Répondre 502 – contrôle échoué",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formater le défaut du modèle": {
+      "main": [
+        [
+          {
+            "node": "Répondre 503 – modèle indisponible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodeGroups": [
+    {
+      "name": "1. Validation et garde-fous RGPD",
+      "nodeNames": [
+        "Valider la demande",
+        "Demande recevable ?"
+      ],
+      "description": "Vérifie opposition à la prospection, présence d'un email et statut du prospect avant tout appel au modèle."
+    },
+    {
+      "name": "2. Rédaction assistée",
+      "nodeNames": [
+        "Construire le prompt",
+        "IA – Rédiger le message",
+        "Modèle de rédaction"
+      ],
+      "description": "Compose le prompt à partir de la seule fiche utile, puis fait rédiger objet et corps par le modèle."
+    },
+    {
+      "name": "3. Contrôle du texte produit",
+      "nodeNames": [
+        "Contrôler la sortie",
+        "Sortie conforme ?"
+      ],
+      "description": "Contrôle promesses, chiffres, longueur et signature, puis oriente vers la réponse 200 ou 502."
+    },
+    {
+      "name": "4. Service indisponible",
+      "nodeNames": [
+        "Formater le défaut du modèle",
+        "Répondre 503 – modèle indisponible"
+      ],
+      "description": "Branche de secours : si le modèle ne répond pas après deux tentatives, renvoie un 503 explicite au lieu d'une erreur technique."
+    }
+  ]
+}

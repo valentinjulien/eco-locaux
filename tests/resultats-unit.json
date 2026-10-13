@@ -1,0 +1,454 @@
+{
+  "date": "2026-10-13T12:50:30.374Z",
+  "node": "v22.22.0",
+  "resultats": [
+    {
+      "id": "TA-01",
+      "module": "Mapping",
+      "scenario": "Nombre de prospects chargés",
+      "attendu": "19",
+      "obtenu": "19",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-02",
+      "module": "Mapping",
+      "scenario": "single_select statut_vente extrait",
+      "attendu": "contacté",
+      "obtenu": "contacté",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-03",
+      "module": "Mapping",
+      "scenario": "link_row type_commerce via lookup",
+      "attendu": "Pressing",
+      "obtenu": "Pressing",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-04",
+      "module": "Mapping",
+      "scenario": "Identifiant de lien conservé pour les écritures",
+      "attendu": "7",
+      "obtenu": "7",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-05",
+      "module": "Mapping",
+      "scenario": "Booléen opt-out RGPD",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-06",
+      "module": "Mapping",
+      "scenario": "Champ vide rendu null, jamais \"undefined\"",
+      "attendu": "null",
+      "obtenu": "null",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-07",
+      "module": "Mapping",
+      "scenario": "Ligne sans raison sociale ne plante pas",
+      "attendu": "(sans nom)",
+      "obtenu": "(sans nom)",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-08",
+      "module": "Mapping",
+      "scenario": "Ville extraite de l’adresse",
+      "attendu": "Lyon",
+      "obtenu": "Lyon",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-09",
+      "module": "Mapping",
+      "scenario": "Adresse absente : pas de ville inventée",
+      "attendu": "null",
+      "obtenu": "null",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-10",
+      "module": "Score",
+      "scenario": "Pressing qualifié récent : classe A",
+      "attendu": "A",
+      "obtenu": "A",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-11",
+      "module": "Score",
+      "scenario": "Boutique joignable mais sans activité : bas de classe B",
+      "attendu": "45/B",
+      "obtenu": "45/B",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-11b",
+      "module": "Score",
+      "scenario": "Score borné à 100 sur tout le jeu de données",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-12",
+      "module": "Score",
+      "scenario": "Prospect opposé : score ramené à 0",
+      "attendu": "0",
+      "obtenu": "0",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-13",
+      "module": "Score",
+      "scenario": "Prospect opposé marqué bloqué",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-14",
+      "module": "Score",
+      "scenario": "Détail du score exposé pour explicabilité",
+      "attendu": "intensite,joignabilite,avancement,fraicheur",
+      "obtenu": "intensite,joignabilite,avancement,fraicheur",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-15",
+      "module": "Score",
+      "scenario": "Jours sans contact calculés",
+      "attendu": "55",
+      "obtenu": "55",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-16",
+      "module": "RGPD",
+      "scenario": "Génération refusée si opposition",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-17",
+      "module": "RGPD",
+      "scenario": "Génération refusée si statut perdu",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-18",
+      "module": "RGPD",
+      "scenario": "Génération refusée sans email",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-19",
+      "module": "RGPD",
+      "scenario": "Génération autorisée dans le cas nominal",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-20",
+      "module": "RGPD",
+      "scenario": "Motif du refus affichable",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-21",
+      "module": "Recherche",
+      "scenario": "Recherche insensible aux accents et à la casse",
+      "attendu": "2",
+      "obtenu": "2",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-22",
+      "module": "Recherche",
+      "scenario": "Recherche sur plusieurs mots",
+      "attendu": "1",
+      "obtenu": "1",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-23",
+      "module": "Recherche",
+      "scenario": "Recherche sur le secteur",
+      "attendu": "4",
+      "obtenu": "4",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-24",
+      "module": "Recherche",
+      "scenario": "Recherche sans résultat",
+      "attendu": "0",
+      "obtenu": "0",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-25",
+      "module": "Filtres",
+      "scenario": "Filtre par statut",
+      "attendu": "4",
+      "obtenu": "4",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-26",
+      "module": "Filtres",
+      "scenario": "Filtre combiné statut et secteur",
+      "attendu": "1",
+      "obtenu": "1",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-27",
+      "module": "Filtres",
+      "scenario": "Filtre « à relancer » : actifs sans contact depuis plus de 30 jours",
+      "attendu": "14",
+      "obtenu": "14",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-27b",
+      "module": "Filtres",
+      "scenario": "Filtre « à relancer » exclut gagnés, perdus et oppositions",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-28",
+      "module": "Filtres",
+      "scenario": "Filtre excluant les oppositions",
+      "attendu": "17",
+      "obtenu": "17",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-29",
+      "module": "Filtres",
+      "scenario": "Filtre par classe de score",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-30",
+      "module": "Tri",
+      "scenario": "Tri par score décroissant",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-31",
+      "module": "Tri",
+      "scenario": "Tri alphabétique",
+      "attendu": "Boucherie Bordelaise",
+      "obtenu": "Boucherie Bordelaise",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-32",
+      "module": "KPI",
+      "scenario": "Total des prospects",
+      "attendu": "19",
+      "obtenu": "19",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-33",
+      "module": "KPI",
+      "scenario": "Répartition sur les 6 statuts réels",
+      "attendu": "6",
+      "obtenu": "6",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-34",
+      "module": "KPI",
+      "scenario": "Comptage des gagnés",
+      "attendu": "3",
+      "obtenu": "3",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-35",
+      "module": "KPI",
+      "scenario": "Taux de conversion calculé sur les contactés",
+      "attendu": "20",
+      "obtenu": "20",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-36",
+      "module": "KPI",
+      "scenario": "Aucune division par zéro sur base vide",
+      "attendu": "null",
+      "obtenu": "null",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-37",
+      "module": "KPI",
+      "scenario": "Comptage des oppositions RGPD",
+      "attendu": "2",
+      "obtenu": "2",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-38",
+      "module": "KPI",
+      "scenario": "Emails générés comptés depuis les interactions",
+      "attendu": "3",
+      "obtenu": "3",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-39",
+      "module": "Génération",
+      "scenario": "Coordonnées non transmises au modèle (minimisation)",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-40",
+      "module": "Génération",
+      "scenario": "Présence des coordonnées signalée par un booléen",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-41",
+      "module": "Génération",
+      "scenario": "Fiche énergie du métier jointe au payload",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-42",
+      "module": "Génération",
+      "scenario": "Paramètres par défaut appliqués",
+      "attendu": "chaleureux/moyenne/facture",
+      "obtenu": "chaleureux/moyenne/facture",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-43",
+      "module": "Génération",
+      "scenario": "Paramètre inconnu remplacé par le défaut",
+      "attendu": "chaleureux",
+      "obtenu": "chaleureux",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-44",
+      "module": "Génération",
+      "scenario": "Régénération signalée au workflow",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-45",
+      "module": "Garde-fous",
+      "scenario": "Réponse conforme validée",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-46",
+      "module": "Garde-fous",
+      "scenario": "Objet manquant bloque",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-47",
+      "module": "Garde-fous",
+      "scenario": "Réponse vide gérée sans exception",
+      "attendu": "false",
+      "obtenu": "false",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-48",
+      "module": "Garde-fous",
+      "scenario": "Promesse interdite détectée",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-49",
+      "module": "Garde-fous",
+      "scenario": "Vocabulaire d’un autre métier détecté",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-50",
+      "module": "Garde-fous",
+      "scenario": "Numéro de téléphone inventé détecté",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-51",
+      "module": "Garde-fous",
+      "scenario": "Pourcentage excessif détecté",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-52",
+      "module": "Garde-fous",
+      "scenario": "Score de confiance abaissé par une anomalie majeure",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-53",
+      "module": "Garde-fous",
+      "scenario": "Longueur hors bornes signalée sans bloquer",
+      "attendu": "true|LONGUEUR",
+      "obtenu": "true|LONGUEUR",
+      "statut": "OK"
+    },
+    {
+      "id": "TA-54",
+      "module": "Garde-fous",
+      "scenario": "Référence d’interaction formatée",
+      "attendu": "true",
+      "obtenu": "true",
+      "statut": "OK"
+    }
+  ]
+}

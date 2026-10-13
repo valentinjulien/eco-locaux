@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-13T12:50:30.854Z",
+  "resultats": [
+    {
+      "id": "API-01",
+      "titre": "Sans code d’accès, la fonction refuse",
+      "statut": "OK",
+      "detail": "HTTP 401 CODE_REFUSE"
+    },
+    {
+      "id": "API-02",
+      "titre": "Avec un mauvais code, la fonction refuse",
+      "statut": "OK",
+      "detail": "HTTP 401"
+    },
+    {
+      "id": "API-03",
+      "titre": "Lecture autorisée : les 19 prospects remontent",
+      "statut": "OK",
+      "detail": "19 lignes"
+    },
+    {
+      "id": "API-04",
+      "titre": "Le jeton Baserow ne figure jamais dans la réponse",
+      "statut": "OK",
+      "detail": "aucune trace du jeton"
+    },
+    {
+      "id": "API-05",
+      "titre": "Table hors liste blanche : refus",
+      "statut": "OK",
+      "detail": "HTTP 403 TABLE_NON_AUTORISEE"
+    },
+    {
+      "id": "API-06",
+      "titre": "Écriture sur une table en lecture seule : refus",
+      "statut": "OK",
+      "detail": "HTTP 403 ECRITURE_INTERDITE"
+    },
+    {
+      "id": "API-07",
+      "titre": "Action inconnue : refus",
+      "statut": "OK",
+      "detail": "HTTP 400 ACTION_INCONNUE"
+    },
+    {
+      "id": "API-08",
+      "titre": "Création d’un prospect par le relais",
+      "statut": "OK",
+      "detail": "ligne 5001 créée"
+    },
+    {
+      "id": "API-09",
+      "titre": "Refus de Baserow remonté en clair",
+      "statut": "OK",
+      "detail": "Un champ envoyé ne correspond pas au schéma de la table 1148624."
+    },
+    {
+      "id": "API-10",
+      "titre": "Identifiant de ligne invalide : refus avant appel",
+      "statut": "OK",
+      "detail": "HTTP 400 ID_INVALIDE"
+    },
+    {
+      "id": "API-11",
+      "titre": "Diagnostic : le serveur décrit sa configuration",
+      "statut": "OK",
+      "detail": "Serveur configuré, 5 table(s) autorisée(s)."
+    },
+    {
+      "id": "API-12",
+      "titre": "GET refusé sur les fonctions",
+      "statut": "OK",
+      "detail": "HTTP 405"
+    },
+    {
+      "id": "API-13",
+      "titre": "Génération : la clé du workflow reste côté serveur",
+      "statut": "OK",
+      "detail": "email reçu, clé non exposée"
+    },
+    {
+      "id": "API-14",
+      "titre": "Génération sans prospect : refus avant appel au workflow",
+      "statut": "OK",
+      "detail": "HTTP 400 DEMANDE_INVALIDE"
+    },
+    {
+      "id": "API-15",
+      "titre": "Génération : payload trop gros refusé",
+      "statut": "OK",
+      "detail": "HTTP 413"
+    },
+    {
+      "id": "API-16",
+      "titre": "Workflow renvoyant une réponse inexploitable",
+      "statut": "OK",
+      "detail": "REPONSE_ILLISIBLE"
+    },
+    {
+      "id": "API-17",
+      "titre": "Workflow injoignable : message clair",
+      "statut": "OK",
+      "detail": "WORKFLOW_INJOIGNABLE"
+    },
+    {
+      "id": "API-18",
+      "titre": "Sans APP_ACCESS_CODE configuré, le serveur se bloque",
+      "statut": "OK",
+      "detail": "HTTP 503 : refus sûr plutôt qu’ouverture"
+    },
+    {
+      "id": "API-19",
+      "titre": "La sonde de santé répond sans code d’accès",
+      "statut": "OK",
+      "detail": "HTTP 200 — un healthcheck n’a pas à connaître de secret"
+    },
+    {
+      "id": "API-20",
+      "titre": "La sonde ne révèle aucune valeur de variable",
+      "statut": "OK",
+      "detail": "que des booléens, aucune valeur"
+    },
+    {
+      "id": "API-21",
+      "titre": "Configuration incomplète : la sonde le dit",
+      "statut": "OK",
+      "detail": "manquant : BASEROW_TOKEN"
+    },
+    {
+      "id": "API-22",
+      "titre": "Sonde stricte : 503 tant qu’il manque une variable",
+      "statut": "OK",
+      "detail": "503 puis 200 : le déploiement échoue au lieu de démarrer à moitié"
+    },
+    {
+      "id": "API-23",
+      "titre": "Webhook n8n déclaré sans clé : la sonde le signale",
+      "statut": "OK",
+      "detail": "une URL de webhook ouverte à tous ne passe pas inaperçue"
+    }
+  ]
+}

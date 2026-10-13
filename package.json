@@ -1,0 +1,24 @@
+{
+  "name": "eco-locaux-prospect",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Outil interne de prospection commerciale d'Eco-Locaux : pipeline, fiches prospect et génération d'email assistée par IA.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node scripts/serveur.js",
+    "dev": "node scripts/serveur.js --dev",
+    "build": "node scripts/build-fichier-unique.js",
+    "deployer": "node scripts/deployer.js",
+    "test": "node tests/unit.test.js",
+    "test:e2e": "node tests/e2e.test.js",
+    "test:api": "node tests/api.test.js",
+    "test:rapport": "node tests/rapport.test.js",
+    "test:tout": "npm run test && npm run test:api && npm run test:rapport && npm run test:e2e",
+    "verifier:w6": "node scripts/verifier-w6.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
